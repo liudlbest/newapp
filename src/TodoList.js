@@ -6,7 +6,7 @@ class TodoList extends React.Component {
     super(props);
     this.state = {
       inputValue: '',
-      list: []
+      list: ['Learning English', 'Learning IT', 'Learning React']
     }
   }
 
@@ -17,16 +17,45 @@ class TodoList extends React.Component {
     })
   }
 
+  
+  handleBtnClick = () => {
+    if(this.state.inputValue){
+      this.setState({
+        list: [...this.state.list, this.state.inputValue],
+        inputValue: ''
+      })
+    }
+  }
+  
+  handleItemDelete = (index) => {
+    console.log(index);
+    const list = [...this.state.list];
+    list.splice(index, 1);
+    this.setState({
+      list: list
+    })
+  }
+
   render(){
     return (
       <Fragment>
         <div>
           <input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)}/>
-          <button>submit</button>
+          <button onClick={this.handleBtnClick}>submit</button>
         </div>
         <ul>
-          <li>学英语</li>
-          <li>Learning React</li>
+          {
+            this.state.list.map((item, index) => {
+              return (
+                <li 
+                  key={index} 
+                  onClick={this.handleItemDelete.bind(this, index)}
+                >
+                  {item}
+                </li>
+              )
+            })
+          }
         </ul>
       </Fragment>
     )
