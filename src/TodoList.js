@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import TodoItem from './TodoItem'
 
 class TodoList extends React.Component {
 
@@ -6,7 +7,7 @@ class TodoList extends React.Component {
     super(props);
     this.state = {
       inputValue: '',
-      list: ['Learning English', 'Learning IT', 'Learning React']
+      list: []
     }
   }
 
@@ -47,12 +48,12 @@ class TodoList extends React.Component {
           {
             this.state.list.map((item, index) => {
               return (
-                <li 
+                <TodoItem 
                   key={index} 
-                  onClick={this.handleItemDelete.bind(this, index)}
+                  content={item} 
+                  handleItemDelete={this.handleItemDelete.bind(this, index)}
                 >
-                  {item}
-                </li>
+                </TodoItem>
               )
             })
           }
