@@ -9,31 +9,32 @@ class TodoList extends React.Component {
       inputValue: '',
       list: []
     }
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
   }
 
   handleInputChange(e){
-    console.log(e.target.value);
-    this.setState({
-      inputValue: e.target.value
-    })
+    const value = e.target.value;
+    this.setState(() => ({
+      inputValue : value
+    }));
   }
 
   
   handleBtnClick = () => {
     if(this.state.inputValue){
-      this.setState({
-        list: [...this.state.list, this.state.inputValue],
-        inputValue: ''
-      })
+      this.setState((prevState) => ({
+        list : [...prevState.list, prevState.inputValue],
+        inputValue : ''
+      }))
     }
   }
   
   handleItemDelete = (index) => {
-    console.log(index);
-    const list = [...this.state.list];
-    list.splice(index, 1);
-    this.setState({
-      list: list
+    this.setState((prevState) => {
+      const list = [...prevState.list];
+      list.splice(index, 1);
+      return {list};
     })
   }
 
@@ -41,24 +42,29 @@ class TodoList extends React.Component {
     return (
       <Fragment>
         <div>
-          <input value={this.state.inputValue} onChange={this.handleInputChange.bind(this)}/>
+          <input value={this.state.inputValue} onChange={this.handleInputChange}/>
           <button onClick={this.handleBtnClick}>submit</button>
         </div>
         <ul>
-          {
-            this.state.list.map((item, index) => {
-              return (
-                <TodoItem 
-                  key={index} 
-                  content={item} 
-                  handleItemDelete={this.handleItemDelete.bind(this, index)}
-                >
-                </TodoItem>
-              )
-            })
-          }
+          {this.getTodoItem()}
         </ul>
       </Fragment>
+    )
+  }
+
+  getTodoItem = () => {
+    return (
+      this.state.list.map((item, index) => {
+        return (
+          <TodoItem 
+            key={index} 
+            index={index}
+            content={item} 
+            handleItemDelete={this.handleItemDelete}
+          >
+          </TodoItem>
+        )
+      })
     )
   }
 }

@@ -2,12 +2,18 @@ import React from 'react'
 
 class TodoItem extends React.Component{
 
+  handleClick = () => {
+    const {handleItemDelete, index} = this.props;
+    handleItemDelete(index);
+  }
+
   render() {
+    const {content} = this.props;
     return (
       <div 
-        onClick={this.props.handleItemDelete}
+        onClick={this.handleClick}
       >
-        {this.props.content}
+        {content}
       </div>
     )
   }
