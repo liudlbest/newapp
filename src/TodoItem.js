@@ -4,7 +4,11 @@ class TodoItem extends React.Component{
 
   render() {
     return (
-      <div onClick={this.props.handleItemDelete}>{this.props.content}</div>
+      <div 
+        onClick={this.props.handleItemDelete}
+      >
+        {this.props.content}
+      </div>
     )
   }
 }
