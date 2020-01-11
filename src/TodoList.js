@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react'
 import TodoItem from './TodoItem'
+import TestPropsRender from './TestPropsRender';
+import TestRender from './TestRender';
 
 class TodoList extends React.Component {
 
@@ -48,6 +50,8 @@ class TodoList extends React.Component {
         <ul>
           {this.getTodoItem()}
         </ul>
+        <TestRender/>
+        <TestPropsRender content={this.state.inputValue} />
       </Fragment>
     )
   }
