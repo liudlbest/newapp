@@ -18,6 +18,10 @@ class TodoItem extends React.Component{
       </div>
     )
   }
+
+  componentWillUnmount(){
+    console.log(this.props.content + " child component will unmount");
+  }
 }
 
 TodoItem.propTypes = {

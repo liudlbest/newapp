@@ -16,7 +16,7 @@ class TodoList extends React.Component {
   }
 
   handleInputChange(e){
-    const value = e.target.value;
+    const value = this.input.value;
     this.setState(() => ({
       inputValue : value
     }));
@@ -25,10 +25,13 @@ class TodoList extends React.Component {
   
   handleBtnClick = () => {
     if(this.state.inputValue){
+      //setState是异步函数，第二个参数可以传入callback方法
       this.setState((prevState) => ({
         list : [...prevState.list, prevState.inputValue],
         inputValue : ''
-      }))
+      }), () => {
+        console.log(this.state.list.length)
+      })
     }
   }
   
@@ -44,7 +47,11 @@ class TodoList extends React.Component {
     return (
       <Fragment>
         <div>
-          <input value={this.state.inputValue} onChange={this.handleInputChange}/>
+          <input 
+            value={this.state.inputValue} 
+            onChange={this.handleInputChange}
+            ref={(input) => {this.input = input}}
+          />
           <button onClick={this.handleBtnClick}>submit</button>
         </div>
         <ul>
