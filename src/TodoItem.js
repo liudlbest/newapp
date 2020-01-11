@@ -8,6 +8,14 @@ class TodoItem extends React.Component{
     handleItemDelete(index);
   }
 
+  shouldComponentUpdate(nextProps, nextState){
+    if(nextProps.content !== this.props.content){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   render() {
     const {content} = this.props;
     return (
