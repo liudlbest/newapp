@@ -1,7 +1,5 @@
 import React, {Fragment} from 'react'
 import TodoItem from './TodoItem'
-import TestPropsRender from './TestPropsRender';
-import TestRender from './TestRender';
 
 class TodoList extends React.Component {
 
@@ -16,7 +14,7 @@ class TodoList extends React.Component {
   }
 
   handleInputChange(e){
-    const value = this.input.value;
+    const value = e.target.value;
     this.setState(() => ({
       inputValue : value
     }));
@@ -29,9 +27,7 @@ class TodoList extends React.Component {
       this.setState((prevState) => ({
         list : [...prevState.list, prevState.inputValue],
         inputValue : ''
-      }), () => {
-        console.log(this.state.list.length)
-      })
+      }))
     }
   }
   
@@ -50,15 +46,12 @@ class TodoList extends React.Component {
           <input 
             value={this.state.inputValue} 
             onChange={this.handleInputChange}
-            ref={(input) => {this.input = input}}
           />
           <button onClick={this.handleBtnClick}>submit</button>
         </div>
         <ul>
           {this.getTodoItem()}
         </ul>
-        <TestRender/>
-        <TestPropsRender content={this.state.inputValue} />
       </Fragment>
     )
   }

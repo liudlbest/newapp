@@ -9,29 +9,23 @@ class TodoItem extends React.Component{
   }
 
   render() {
-    const {content, test} = this.props;
+    const {content} = this.props;
     return (
       <div 
         onClick={this.handleClick}
       >
-        {content} - {test}
+        {content}
       </div>
     )
   }
-
-  componentWillUnmount(){
-    console.log(this.props.content + " child component will unmount");
-  }
+  
 }
 
 TodoItem.propTypes = {
   content: PropTypes.string.isRequired,
   handleItemDelete: PropTypes.func,
-  test: PropTypes.string
 }
 
-TodoItem.defaultProps = {
-  test: '^_^'
-}
+
 
 export default TodoItem
