@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react'
 import TodoItem from './TodoItem'
+import axios from 'axios'
 
 class TodoList extends React.Component {
 
@@ -20,6 +21,21 @@ class TodoList extends React.Component {
     }));
   }
 
+  componentDidMount(){
+    //建议把ajax放到componentDidMount方法里
+    let url = "http://localhost:3001/todoList";
+    axios.get(url)
+      .then((response) => {
+        this.setState(() => {
+          return {
+            list: response.data,
+          }
+        })
+      })
+      .catch(() => {
+        console.log("axios error")
+      })
+  }
   
   handleBtnClick = () => {
     if(this.state.inputValue){
