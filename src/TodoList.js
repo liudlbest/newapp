@@ -7,54 +7,13 @@ import {connect } from 'react-redux'
 
 class TodoList extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleItemDelete = this.handleItemDelete.bind(this);
-  }
-
-  handleInputChange(e){
-    const action = {
-      type: INPUT_VALUE_CHANGE,
-      inputValue: e.target.value
-    }
-    this.props.dispatch(action);
-  }
-
   componentDidMount(){
     //建议把ajax放到componentDidMount方法里
-    let url = "http://localhost:3001/todoList";
-    var action = (dispatch) => {
-      axios.get(url)
-      .then((response) => {
-        const action = {
-          type: INIT_TODO_LIST,
-          list: response.data
-        }
-        dispatch(action);
-      })
-      .catch(() => {
-        console.log("axios error")
-      })
-    }
-    this.props.dispatch(action);
+    this.props.initTodoList();
     
   }
+
   
-  handleBtnClick = () => {
-    const action = {
-      type: ADD_TODO_ITEM
-    }
-    this.props.dispatch(action);
-  }
-  
-  handleItemDelete = (index) => {
-    const action = {
-      type: DELETE_TODO_ITEM,
-      index
-    }
-    this.props.dispatch(action);
-  }
 
   render(){
     return (
@@ -62,9 +21,9 @@ class TodoList extends React.Component {
         <div>
           <input 
             value={this.props.inputValue} 
-            onChange={this.handleInputChange}
+            onChange={this.props.handleInputChange}
           />
-          <button onClick={this.handleBtnClick}>submit</button>
+          <button onClick={this.props.handleBtnClick}>submit</button>
         </div>
         <ul>
           {this.getTodoItem()}
@@ -74,6 +33,7 @@ class TodoList extends React.Component {
   }
 
   getTodoItem = () => {
+    console.log("getTodoItem", this.props);
     return (
       this.props.list.map((item, index) => {
         return (
@@ -81,7 +41,7 @@ class TodoList extends React.Component {
             key={index} 
             index={index}
             content={item} 
-            handleItemDelete={this.handleItemDelete}
+            handleItemDelete={(index)=>{this.props.handleItemDelete(index)}}
           >
           </TodoItem>
         )
@@ -95,4 +55,50 @@ const mapStateToProps = (state/*, props*/) => ({
   list: state.list,
 })
 
-export default connect(mapStateToProps)(TodoList)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleInputChange(e){
+      let action = {
+        type: INPUT_VALUE_CHANGE,
+        inputValue: e.target.value
+      }
+      dispatch(action);
+    },
+    
+    handleBtnClick(){
+      let action = {
+        type: ADD_TODO_ITEM
+      }
+      dispatch(action);
+    },
+    
+    handleItemDelete(index) {
+      console.log("handleItemDelete: ", index);
+      let action = {
+        type: DELETE_TODO_ITEM,
+        index
+      }
+      dispatch(action);
+    }, 
+
+    initTodoList() {
+      let url = "http://localhost:3001/todoList";
+      var action = (_dispatch) => {
+        axios.get(url)
+        .then((response) => {
+          const _action = {
+            type: INIT_TODO_LIST,
+            list: response.data
+          }
+          _dispatch(_action);
+        })
+        .catch(() => {
+          console.log("axios error")
+        })
+      }
+      dispatch(action);
+    }
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(TodoList)

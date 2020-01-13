@@ -15,7 +15,9 @@ var reducer = (previousState = defaultState, action) => {
       state.inputValue = '';
       break;
     case DELETE_TODO_ITEM:
-      state.list.splice(action.index, 1);
+      let array = [...state.list];
+      array.splice(action.index, 1);
+      state.list = [...array];
       break;
     case INIT_TODO_LIST:
       console.log("reducer init", action.list);
