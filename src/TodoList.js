@@ -1,24 +1,31 @@
 import React, {Fragment} from 'react'
 import TodoItem from './TodoItem'
 import axios from 'axios'
+import store from './redux/store'
+import {INPUT_VALUE_CHANGE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_TODO_LIST} from './redux/actionTypes'
 
 class TodoList extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      inputValue: '',
-      list: []
-    }
+    this.state = store.getState();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleItemDelete = this.handleItemDelete.bind(this);
+    store.subscribe( () => {
+      this.setState(store.getState())
+    })
   }
 
   handleInputChange(e){
-    const value = e.target.value;
-    this.setState(() => ({
-      inputValue : value
-    }));
+    // const value = e.target.value;
+    // this.setState(() => ({
+    //   inputValue : value
+    // }));
+    const action = {
+      type: INPUT_VALUE_CHANGE,
+      inputValue: e.target.value
+    }
+    store.dispatch(action);
   }
 
   componentDidMount(){
@@ -26,11 +33,13 @@ class TodoList extends React.Component {
     let url = "http://localhost:3001/todoList";
     axios.get(url)
       .then((response) => {
-        this.setState(() => {
-          return {
-            list: response.data,
-          }
-        })
+        console.log(response.data);
+        const action = {
+          type: INIT_TODO_LIST,
+          list: response.data
+        }
+        console.log(action.list);
+        store.dispatch(action);
       })
       .catch(() => {
         console.log("axios error")
@@ -38,21 +47,18 @@ class TodoList extends React.Component {
   }
   
   handleBtnClick = () => {
-    if(this.state.inputValue){
-      //setState是异步函数，第二个参数可以传入callback方法
-      this.setState((prevState) => ({
-        list : [...prevState.list, prevState.inputValue],
-        inputValue : ''
-      }))
+    const action = {
+      type: ADD_TODO_ITEM
     }
+    store.dispatch(action);
   }
   
   handleItemDelete = (index) => {
-    this.setState((prevState) => {
-      const list = [...prevState.list];
-      list.splice(index, 1);
-      return {list};
-    })
+    const action = {
+      type: DELETE_TODO_ITEM,
+      index
+    }
+    store.dispatch(action);
   }
 
   render(){

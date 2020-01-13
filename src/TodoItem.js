@@ -22,7 +22,7 @@ class TodoItem extends React.Component{
       <div 
         onClick={this.handleClick}
       >
-        {content}
+        {content} 
       </div>
     )
   }
