@@ -31,19 +31,21 @@ class TodoList extends React.Component {
   componentDidMount(){
     //建议把ajax放到componentDidMount方法里
     let url = "http://localhost:3001/todoList";
-    axios.get(url)
+    var action = (dispatch) => {
+      axios.get(url)
       .then((response) => {
-        console.log(response.data);
         const action = {
           type: INIT_TODO_LIST,
           list: response.data
         }
-        console.log(action.list);
-        store.dispatch(action);
+        dispatch(action);
       })
       .catch(() => {
         console.log("axios error")
       })
+    }
+    store.dispatch(action);
+    
   }
   
   handleBtnClick = () => {

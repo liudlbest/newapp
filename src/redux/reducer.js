@@ -1,7 +1,7 @@
 import {INPUT_VALUE_CHANGE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_TODO_LIST } from './actionTypes'
 
 var defaultState = {
-  inputValue: "1234",
+  inputValue: "",
   list: []
 }
 var reducer = (previousState = defaultState, action) => {

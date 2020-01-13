@@ -117,6 +117,7 @@ store_2.dispatch(sayActionCreator("Hello"));
 
 console.log("store_2 state after dispatch say action ", store_2.getState());
 
+// 自定义中间件
 var logMiddleWare = (dispatch, getState) => {
   return function(next){
     return function(action){
