@@ -1,31 +1,24 @@
 import React, {Fragment} from 'react'
 import TodoItem from './TodoItem'
 import axios from 'axios'
-import store from './redux/store'
 import {INPUT_VALUE_CHANGE, ADD_TODO_ITEM, DELETE_TODO_ITEM, INIT_TODO_LIST} from './redux/actionTypes'
+import {connect } from 'react-redux'
+
 
 class TodoList extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = store.getState();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleItemDelete = this.handleItemDelete.bind(this);
-    store.subscribe( () => {
-      this.setState(store.getState())
-    })
   }
 
   handleInputChange(e){
-    // const value = e.target.value;
-    // this.setState(() => ({
-    //   inputValue : value
-    // }));
     const action = {
       type: INPUT_VALUE_CHANGE,
       inputValue: e.target.value
     }
-    store.dispatch(action);
+    this.props.dispatch(action);
   }
 
   componentDidMount(){
@@ -44,7 +37,7 @@ class TodoList extends React.Component {
         console.log("axios error")
       })
     }
-    store.dispatch(action);
+    this.props.dispatch(action);
     
   }
   
@@ -52,7 +45,7 @@ class TodoList extends React.Component {
     const action = {
       type: ADD_TODO_ITEM
     }
-    store.dispatch(action);
+    this.props.dispatch(action);
   }
   
   handleItemDelete = (index) => {
@@ -60,7 +53,7 @@ class TodoList extends React.Component {
       type: DELETE_TODO_ITEM,
       index
     }
-    store.dispatch(action);
+    this.props.dispatch(action);
   }
 
   render(){
@@ -68,7 +61,7 @@ class TodoList extends React.Component {
       <Fragment>
         <div>
           <input 
-            value={this.state.inputValue} 
+            value={this.props.inputValue} 
             onChange={this.handleInputChange}
           />
           <button onClick={this.handleBtnClick}>submit</button>
@@ -82,7 +75,7 @@ class TodoList extends React.Component {
 
   getTodoItem = () => {
     return (
-      this.state.list.map((item, index) => {
+      this.props.list.map((item, index) => {
         return (
           <TodoItem 
             key={index} 
@@ -97,4 +90,9 @@ class TodoList extends React.Component {
   }
 }
 
-export default TodoList
+const mapStateToProps = (state/*, props*/) => ({
+  inputValue: state.inputValue,
+  list: state.list,
+})
+
+export default connect(mapStateToProps)(TodoList)

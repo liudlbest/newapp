@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TodoList from './TodoList';
 import { Provider } from 'react-redux'
+import store from './redux/store'
 
 
 ReactDOM.render(
-  // <Provider store={store}>
-    <TodoList />,
-  // </Provider>, 
+  <Provider store={store}>
+    <TodoList />
+  </Provider>, 
   document.getElementById('root')
 );
