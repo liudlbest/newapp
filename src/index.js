@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import JianshuApp from './jianshu/JianshuApp';
 
 
 ReactDOM.render(
-  <App />, 
+  <JianshuApp />, 
   document.getElementById('root')
 );
