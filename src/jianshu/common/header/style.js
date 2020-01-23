@@ -3,12 +3,8 @@ import logo from '../../statistics/jianshu.png'
 
 export const HeaderWrapper = styled.div`
   height: 56px;
+  border-bottom: 1px solid #f0f0f0;
   position: relative;
-  // box-sizing: border-box;
-  line-height: 1.42857;
-  border-color: #f0f0f0;
-  border: 1px solid;
-  border-width: 0 0 1px;
 `
 
 export const Logo = styled.a.attrs({
@@ -25,21 +21,20 @@ export const Logo = styled.a.attrs({
 `
 
 export const Nav = styled.div`
-  left: 100px;
-  top: 0;
-  width: 940px;
+  width: 960px;
   height: 100%;
-  margin: 0 25px;
-  position: absolute;
+  margin: 0 auto;
+  padding-right: 70px;
+  box-sizing: border-box;
 `
 
 export const NavItem = styled.a`
-  display: block;
-  height: 100%;
+  line-height: 56px;
   font-size: 17px;
-  padding: 15px;
+  padding: 0 15px; //上下0，左右15px
   color: #333;
-  &.title {
+  margin: 0 auto;
+  &.active {
     color: #ea6f5a;
   }
   &.left {
@@ -47,31 +42,54 @@ export const NavItem = styled.a`
   }
   &.right {
     float: right;
+    color: #969696;
   }
 `
 
-export const Button = styled.button`
-  display: block;
-  width: 80px;
-  height: 38px;
-  line-height: 24px;
-  margin: 0 15px;
-  border: 1px solid rgba(236,97,73,.7);
-  border-radius: 19px;
-  font-size: 15px;
-  color: #ea6f5a;
-  // background-size: contain;
-`
 
-export const Input = styled.input.attrs({
+export const NavSearch = styled.input.attrs({
   placeholder: '搜索'
 })`
-  width: 160px;
-  height: 38px;
-  margin: 15px;
-  padding: 0 40px 0 20px ;
-  border: 1px solid #eee;
-  border-radius: 40px;
+width: 160px;
+height: 38px;
+margin: 9px;
+padding: 0 20px ;
+margin-top: 9px;
+margin-left: 20px;
+box-sizing: border-box;
+border: 1px solid #eee;
+outline: none;
+border-radius: 19px; //高度的一半
+font-size: 14px;
+background: #eee;
+&::placeholder {
+  color: #999
+}
+`
+
+export const Addition = styled.div`
+position: absolute;
+right: 0;
+top: 0;
+height: 56px;
+`
+
+export const Button = styled.button`
+  float: right;
+  width: 100px;
+  height: 40px;
+  line-height: 24px;
+  margin: 8px 12px 0;
+  padding: 6px 12px;
+  border: 1px solid #ec6149;
+  border-radius: 20px;
   font-size: 14px;
-  box-sizing: border-box;
+  color: #ea6f5a;
+  &.reg {
+    color: #ec6149;
+  }
+  &.writing {
+    color: #fff;
+    background: #ec6149;
+  }
 `
