@@ -1,22 +1,8 @@
-import {
-  HANDLE_FOCUS,
-  HANDLE_BLUR
-} from './actionTypes'
+import { combineReducers } from "redux";
+import headerReducer from '../common/header/store/reducer'
 
-const defaultState = {
-  focused: false,
-};
+const reducer = combineReducers({
+  header: headerReducer,
+})
 
-export default (state = defaultState, action) => {
-  let newState = {...state}
-  switch (action.type){
-    case HANDLE_FOCUS:
-      newState.focused = true;
-      return newState;
-    case HANDLE_BLUR:
-      newState.focused = false;
-      return newState;
-    default:
-      return newState;
-  }
-}
+export default reducer;
