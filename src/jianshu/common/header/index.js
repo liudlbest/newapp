@@ -9,6 +9,7 @@ import {
   Addition,
   SearchWrapper,
 } from './style'
+import {CSSTransition } from 'react-transition-group'
 
 class Header extends Component {
   
@@ -31,12 +32,15 @@ class Header extends Component {
           <NavItem className="active left">首页</NavItem>
           <NavItem className="left">下载App</NavItem>
           <SearchWrapper>
-            <NavSearch
-              className={this.state.focused ? 'focused' : ''}
-              onFocus={this.handleInputFocus}
-              onBlur={this.handleInputBlur}
-            ></NavSearch>
-            <span className={this.state.focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
+            <CSSTransition in={this.state.focused} timeout={200} classNames="slide">
+              <NavSearch
+                className={this.state.focused ? 'focused' : ''}
+                onFocus={this.handleInputFocus}
+                onBlur={this.handleInputBlur}
+              ></NavSearch>
+            </CSSTransition>
+              <span className={this.state.focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
+            
           </SearchWrapper>
           <NavItem className="right">
             <span className="iconfont">&#xe636;</span>
