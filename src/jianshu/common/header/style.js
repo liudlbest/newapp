@@ -38,7 +38,7 @@ export const NavItem = styled.a`
     color: #ea6f5a;
   }
   &.left {
-    float: left;
+    float: left; //浮动的话，不占位
   }
   &.right {
     float: right;
@@ -46,6 +46,20 @@ export const NavItem = styled.a`
   }
 `
 
+export const SearchWrapper = styled.div`
+  float: left;
+  position: relative;
+  .iconfont {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    width: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    background: #969696;
+    text-align: center;
+  }
+`
 
 export const NavSearch = styled.input.attrs({
   placeholder: '搜索'

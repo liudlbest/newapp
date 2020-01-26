@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import JianshuApp from './jianshu/JianshuApp';
-import App from './App';
+// import App from './App';
+import {GlobalStyle } from './jianshu/statistics/iconfont/iconfont'
 
 
 ReactDOM.render(
-  <JianshuApp />, 
+  <React.Fragment>
+    <GlobalStyle/>
+    <JianshuApp />
+  </React.Fragment>, 
   document.getElementById('root')
 );
