@@ -56,8 +56,10 @@ export const SearchWrapper = styled.div`
     width: 30px;
     line-height: 30px;
     border-radius: 15px;
-    background: #969696;
     text-align: center;
+    &.focused{
+      background: #777
+    }
   }
 `
 
@@ -67,7 +69,7 @@ export const NavSearch = styled.input.attrs({
 width: 160px;
 height: 38px;
 margin: 9px;
-padding: 0 20px ;
+padding: 0 38px 0 20px ;
 margin-top: 9px;
 margin-left: 20px;
 box-sizing: border-box;
@@ -76,8 +78,12 @@ outline: none;
 border-radius: 19px; //高度的一半
 font-size: 14px;
 background: #eee;
+color: #666;
 &::placeholder {
   color: #999
+}
+&.focused{
+  width: 200px;
 }
 `
 
