@@ -11,7 +11,7 @@ import {
   Addition,
   SearchWrapper,
 } from './style';
-import { HANDLE_FOCUS, HANDLE_BLUR } from "./store/actionTypes";
+import {actionCreators} from './store'
 
 const Header = (props) => {
   
@@ -55,14 +55,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputFocus : () => {
-    dispatch({
-      type: HANDLE_FOCUS
-    })
+    dispatch(actionCreators.searchFocus)
   },
   handleInputBlur : () => {
-    dispatch({
-      type: HANDLE_BLUR
-    })
+    dispatch(actionCreators.searchBlur)
   }
 })
 

@@ -1,7 +1,4 @@
-import {
-  HANDLE_FOCUS,
-  HANDLE_BLUR
-} from './actionTypes'
+import * as constants from './constants'
 
 const defaultState = {
   focused : false
@@ -10,10 +7,10 @@ const defaultState = {
 export default (state = defaultState, action) => {
   let newState = {...state}
   switch (action.type){
-    case HANDLE_FOCUS:
+    case constants.HANDLE_FOCUS:
       newState.focused = true;
       return newState;
-    case HANDLE_BLUR:
+    case constants.HANDLE_BLUR:
       newState.focused = false;
       return newState;
     default:
