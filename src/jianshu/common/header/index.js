@@ -19,6 +19,8 @@ import {actionCreators} from './store'
 
 const Header = (props) => {
   
+  const { list, focused, handleInputFocus, handleInputBlur  } = props;
+
   const getSearchArea = (show) => {
     if(show){
       return (
@@ -29,7 +31,7 @@ const Header = (props) => {
           </SearchInfoTitle>
           <div>
             {
-              props.list.map((item) => (
+              list.map((item) => (
                 <SearchInfoItem key={item}>{item}</SearchInfoItem>
               ))
             }
@@ -49,15 +51,15 @@ const Header = (props) => {
         <NavItem className="active left">首页</NavItem>
         <NavItem className="left">下载App</NavItem>
         <SearchWrapper>
-          <CSSTransition in={props.focused} timeout={200} classNames="slide">
+          <CSSTransition in={focused} timeout={200} classNames="slide">
             <NavSearch
-              className={props.focused ? 'focused' : ''}
-              onFocus={props.handleInputFocus}
-              onBlur={props.handleInputBlur}
+              className={focused ? 'focused' : ''}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
             ></NavSearch>
           </CSSTransition>
-          <span className={props.focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
-          {getSearchArea(props.focused)}
+          <span className={focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
+          {getSearchArea(focused)}
         </SearchWrapper>
         <NavItem className="right">
           <span className="iconfont">&#xe636;</span>
