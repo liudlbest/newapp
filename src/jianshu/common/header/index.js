@@ -8,6 +8,10 @@ import {
   NavItem,
   Button,
   NavSearch,
+  SearchInfo,
+  SearchInfoTitle,
+  SearchInfoSwitch,
+  SearchInfoItem,
   Addition,
   SearchWrapper,
 } from './style';
@@ -15,6 +19,29 @@ import {actionCreators} from './store'
 
 const Header = (props) => {
   
+  const getSearchArea = (show) => {
+    if(show){
+      return (
+        <SearchInfo>
+          <SearchInfoTitle>
+            热门搜索
+            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+          </SearchInfoTitle>
+          <div>
+            <SearchInfoItem>教育</SearchInfoItem>
+            <SearchInfoItem>生活</SearchInfoItem>
+            <SearchInfoItem>简书</SearchInfoItem>
+            <SearchInfoItem>艺术</SearchInfoItem>
+            <SearchInfoItem>体育</SearchInfoItem>
+          </div>
+        </SearchInfo>
+      )
+    } else {
+      return null;
+    }
+  }
+
+
   return (
     <HeaderWrapper>
       <Logo />
@@ -29,8 +56,8 @@ const Header = (props) => {
               onBlur={props.handleInputBlur}
             ></NavSearch>
           </CSSTransition>
-            <span className={props.focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
-          
+          <span className={props.focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
+          {getSearchArea(props.focused)}
         </SearchWrapper>
         <NavItem className="right">
           <span className="iconfont">&#xe636;</span>

@@ -84,13 +84,13 @@ export const NavSearch = styled.input.attrs({
     color: #999
   }
   &.focused{
-    width: 200px;
+    width: 220px;
   }
   &.slide-enter{
     transition: all .2s ease-out;
   }
   &.slide-enter-active{
-    width: 200px;
+    width: 220px;
   }
   &.slide-exit{
     transition: all .2s ease-out;
@@ -100,6 +100,41 @@ export const NavSearch = styled.input.attrs({
     width: 160px;
   }
 `
+
+export const SearchInfo = styled.div`
+position: absolute;
+left: 0;
+top: 56px;
+width: 240px;
+padding: 0 20px;
+box-shadow: 0 0 8px rgba(0, 0, 0, .2);
+`
+
+export const SearchInfoTitle = styled.div`
+margin-top: 20px;
+margin-bottom: 15px;
+line-height: 20px;
+font-size: 14px;
+color: #969696;
+`
+
+export const SearchInfoSwitch = styled.span`
+float: right;
+font-size: 13px;
+`
+
+export const SearchInfoItem = styled.a`
+display: block; //不然设置不了宽高
+float: left;
+line-height: 20px;
+padding: 0 5px;
+margin-right: 5px;
+margin-bottom: 15px;
+border: 1px solid #ddd;
+font-size: 14px;
+color: #777;
+`
+
 
 export const Addition = styled.div`
 position: absolute;

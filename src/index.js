@@ -6,9 +6,9 @@ import {GlobalStyle } from './jianshu/statistics/iconfont/iconfont'
 
 
 ReactDOM.render(
-  <React.Fragment>
+  (<React.Fragment>
     <GlobalStyle/>
     <JianshuApp />
-  </React.Fragment>, 
+  </React.Fragment>), 
   document.getElementById('root')
 );
