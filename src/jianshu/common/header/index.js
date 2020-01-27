@@ -28,11 +28,11 @@ const Header = (props) => {
             <SearchInfoSwitch>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <div>
-            <SearchInfoItem>教育</SearchInfoItem>
-            <SearchInfoItem>生活</SearchInfoItem>
-            <SearchInfoItem>简书</SearchInfoItem>
-            <SearchInfoItem>艺术</SearchInfoItem>
-            <SearchInfoItem>体育</SearchInfoItem>
+            {
+              props.list.map((item) => (
+                <SearchInfoItem key={item}>{item}</SearchInfoItem>
+              ))
+            }
           </div>
         </SearchInfo>
       )
@@ -78,14 +78,16 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => ({
   focused: state.getIn(['header','focused']),//state.get('header').get('focused'),
+  list: state.getIn(['header', 'list'])
 })
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputFocus : () => {
-    dispatch(actionCreators.searchFocus)
+    dispatch(actionCreators.getList())
+    dispatch(actionCreators.searchFocus())
   },
   handleInputBlur : () => {
-    dispatch(actionCreators.searchBlur)
+    dispatch(actionCreators.searchBlur())
   }
 })
 
