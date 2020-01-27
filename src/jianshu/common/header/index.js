@@ -19,19 +19,32 @@ import {actionCreators} from './store'
 
 const Header = (props) => {
   
-  const { list, focused, handleInputFocus, handleInputBlur  } = props;
+  const { list, focused, handleInputFocus, handleInputBlur, 
+    mouseIn, handleSearchMouseEnter, handleMouseLeave, handleChangePage,
+    curPage, totalPage } = props;
 
   const getSearchArea = (show) => {
     if(show){
+      const pageList = [];
+      const jsList = list.toJS();
+      if(jsList.length){
+        for (let i = 0; i < 10; i++) {
+          let j = (curPage * 10 ) + i;
+          if(jsList[j]){
+            pageList.push(jsList[j])
+          }
+        }
+      }
+
       return (
-        <SearchInfo>
+        <SearchInfo onMouseEnter={handleSearchMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchInfoTitle>
             热门搜索
-            <SearchInfoSwitch>换一批</SearchInfoSwitch>
+            <SearchInfoSwitch onClick={() => handleChangePage(curPage, totalPage)}>换一批</SearchInfoSwitch>
           </SearchInfoTitle>
           <div>
             {
-              list.map((item) => (
+              pageList.map((item) => (
                 <SearchInfoItem key={item}>{item}</SearchInfoItem>
               ))
             }
@@ -59,7 +72,7 @@ const Header = (props) => {
             ></NavSearch>
           </CSSTransition>
           <span className={focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
-          {getSearchArea(focused)}
+          {getSearchArea(focused || mouseIn)}
         </SearchWrapper>
         <NavItem className="right">
           <span className="iconfont">&#xe636;</span>
@@ -80,7 +93,10 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => ({
   focused: state.getIn(['header','focused']),//state.get('header').get('focused'),
-  list: state.getIn(['header', 'list'])
+  list: state.getIn(['header', 'list']),
+  mouseIn: state.getIn(['header', 'mouseIn']),
+  curPage: state.getIn(['header', 'curPage']),
+  totalPage: state.getIn(['header', 'totalPage'])
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -90,6 +106,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleInputBlur : () => {
     dispatch(actionCreators.searchBlur())
+  },
+  handleSearchMouseEnter: () => {
+    dispatch(actionCreators.searchMouseEnter())
+  },
+  handleMouseLeave: () => {
+    dispatch(actionCreators.searchMouseLeave())
+  },
+  handleChangePage: (curPage, totalPage) => {
+    dispatch(actionCreators.searchChangePage(curPage, totalPage))
   }
 })
 

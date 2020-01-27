@@ -2,8 +2,11 @@ import * as constants from './constants'
 import { fromJS } from "immutable";
 
 const defaultState = fromJS({
-  focused : false,
+  focused: false,
   list: [],
+  mouseIn: false,
+  curPage: 0,
+  totalPage: 0,
 })
 
 export default (state = defaultState, action) => {
@@ -13,7 +16,16 @@ export default (state = defaultState, action) => {
     case constants.HANDLE_BLUR:
       return state.set('focused', false);
     case constants.CHANGE_LIST:
-      return state.set('list', action.data);
+      return state.merge({
+        "list": action.data,
+        "totalPage": action.totalPage
+      });
+    case constants.MOUSE_ENTER:
+      return state.set('mouseIn', true);
+    case constants.MOUSE_LEAVE:
+      return state.set('mouseIn', false);
+    case constants.CHANGE_PAGE:
+      return state.set('curPage', action.curPage);
     default:
       return state;
   }

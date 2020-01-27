@@ -5,7 +5,8 @@ import { fromJS } from "immutable";
 const changeList = (data) => {
   return {
     type: constants.CHANGE_LIST,
-    data: fromJS(data)
+    data: fromJS(data),
+    totalPage: Math.ceil(data.length / 10)
   }
 }
 
@@ -25,5 +26,31 @@ export const getList = () => {
     }).catch(() => {
       console.log("Error");
     })
+  }
+}
+
+export const searchMouseEnter = () => {
+  return {
+    type: constants.MOUSE_ENTER
+  }
+}
+
+export const searchMouseLeave = () => {
+  return {
+    type: constants.MOUSE_LEAVE
+  }
+}
+
+export const searchChangePage = (curPage, totalPage) => {
+  if(curPage < totalPage - 1) {
+    return {
+      type: constants.CHANGE_PAGE,
+      curPage: curPage + 1
+    }
+  } else{
+    return {
+      type: constants.CHANGE_PAGE,
+      curPage: 0
+    }
   }
 }
