@@ -18,6 +18,8 @@ import {
 import {actionCreators} from './store'
 
 const Header = (props) => {
+
+  let spinIcon = React.createRef();
   
   const { list, focused, handleInputFocus, handleInputBlur, 
     mouseIn, handleSearchMouseEnter, handleMouseLeave, handleChangePage,
@@ -40,7 +42,13 @@ const Header = (props) => {
         <SearchInfo onMouseEnter={handleSearchMouseEnter} onMouseLeave={handleMouseLeave}>
           <SearchInfoTitle>
             热门搜索
-            <SearchInfoSwitch onClick={() => handleChangePage(curPage, totalPage)}>换一批</SearchInfoSwitch>
+            <SearchInfoSwitch 
+              onClick={() => handleChangePage(curPage, totalPage, spinIcon)}
+            >
+              {/* 刷新图标 */}
+              <span ref={(icon) => {spinIcon = icon}} className="iconfont spin">&#xe63a;</span>
+              换一批
+            </SearchInfoSwitch>
           </SearchInfoTitle>
           <div>
             {
@@ -71,16 +79,19 @@ const Header = (props) => {
               onBlur={handleInputBlur}
             ></NavSearch>
           </CSSTransition>
-          <span className={focused ? 'iconfont focused' : 'iconfont'}>&#xe64d;</span>
+          {/* 放大镜图标 */}
+          <span className={focused ? 'iconfont focused zoom' : 'iconfont zoom'}>&#xe64d;</span>
           {getSearchArea(focused || mouseIn)}
         </SearchWrapper>
         <NavItem className="right">
+          {/* Aa图标 */}
           <span className="iconfont">&#xe636;</span>
         </NavItem>
         <NavItem className="right">登录</NavItem>
       </Nav>
       <Addition>
         <Button className='writing'>
+          {/* 羽毛笔图标 */}
           <span className="iconfont">&#xe6e5;</span>
           写文章
         </Button>
@@ -113,7 +124,20 @@ const mapDispatchToProps = (dispatch) => ({
   handleMouseLeave: () => {
     dispatch(actionCreators.searchMouseLeave())
   },
-  handleChangePage: (curPage, totalPage) => {
+  handleChangePage: (curPage, totalPage, spin) => {
+    let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+    console.log(originAngle);
+    if(originAngle){
+      originAngle = parseInt(originAngle);
+    } else {
+      originAngle = 0;
+    }
+    if(originAngle === 0){
+      originAngle = 360;
+    } else {
+      originAngle = 0;
+    }
+    spin.style.transform = 'rotate(' + originAngle + 'deg)';
     dispatch(actionCreators.searchChangePage(curPage, totalPage))
   }
 })
