@@ -16,8 +16,9 @@ class Topic extends React.Component {
         <TopicItem key={item.get('id')}>{item.get('title')}</TopicItem>
       ))
     )
-    
   }
+
+  
 
   render(){
     return (
