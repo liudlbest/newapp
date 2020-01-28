@@ -112,6 +112,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleInputFocus : (list) => {
+    // 优化：不用每次focus都去获取数据
     (list.size === 0) && dispatch(actionCreators.getList())
     dispatch(actionCreators.searchFocus())
   },

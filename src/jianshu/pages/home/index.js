@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <HomeWrapper>
       <HomeLeft>
-        <img className="banner-img" src="https://static.zhihu.com/heifetz/assets/NewYear2020Banner.e5ccc19d.png"/>
+        <img className="banner-img" alt="" src="https://static.zhihu.com/heifetz/assets/NewYear2020Banner.e5ccc19d.png"/>
         <Topic></Topic>
         <List></List>
       </HomeLeft>
