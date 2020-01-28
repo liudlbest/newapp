@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from '../../statistics/jianshu.png'
+import logo from '../../statics/jianshu.png'
 
 export const HeaderWrapper = styled.div`
   height: 56px;
