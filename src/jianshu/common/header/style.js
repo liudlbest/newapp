@@ -121,6 +121,7 @@ color: #969696;
 export const SearchInfoSwitch = styled.span`
 float: right;
 font-size: 13px;
+cursor: pointer; //光标换成小手
 .spin{
   display: block;
   float: left;

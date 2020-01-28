@@ -75,7 +75,7 @@ const Header = (props) => {
           <CSSTransition in={focused} timeout={200} classNames="slide">
             <NavSearch
               className={focused ? 'focused' : ''}
-              onFocus={handleInputFocus}
+              onFocus={() => handleInputFocus(list)}
               onBlur={handleInputBlur}
             ></NavSearch>
           </CSSTransition>
@@ -111,8 +111,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  handleInputFocus : () => {
-    dispatch(actionCreators.getList())
+  handleInputFocus : (list) => {
+    (list.size === 0) && dispatch(actionCreators.getList())
     dispatch(actionCreators.searchFocus())
   },
   handleInputBlur : () => {
