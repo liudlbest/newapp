@@ -23,6 +23,20 @@ export const HomeRight = styled.div`
   width: 280px;
 `
 
+export const BackTop = styled.div`
+  position: fixed;
+  right: 30px;
+  bottom: 20px;
+  width: 40px;
+  height: 50px;
+  padding: 3px 0;
+  font-size: 14px;
+  box-sizing: border-box; 
+  text-align: center;
+  border: 1px solid #aaa;
+  cursor: pointer;
+`;
+
 export const TopicWrapper = styled.div`
   overflow: hidden;
   padding: 20px 0 10px 0;

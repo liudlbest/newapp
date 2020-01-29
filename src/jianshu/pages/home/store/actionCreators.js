@@ -87,3 +87,8 @@ export const getMoreArticles = (page) => {
       })
   }
 }
+
+export const toggleBackTop = (show) => ({
+  type: constants.TOGGLE_BACK_TOP,
+  show
+})

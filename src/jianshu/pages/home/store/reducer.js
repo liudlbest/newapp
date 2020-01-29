@@ -7,6 +7,7 @@ const defaultState = fromJS({
   recommendList: [],
   writerList: [],
   articlePage: 1,
+  backTopScroll: true,
 })
 
 export default (state = defaultState, action) => {
@@ -24,6 +25,8 @@ export default (state = defaultState, action) => {
         'articleList': state.get('articleList').concat(action.data),
         'articlePage': action.articlePage
       })
+    case constants.TOGGLE_BACK_TOP:
+      return state.set("backTopScroll", action.show)
     default:
       return state;;
   }
