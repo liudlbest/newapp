@@ -1,11 +1,6 @@
-import { fromJS } from "immutable";
-import * as constants from './constants'
-
-const defaultState = fromJS({
-  topicList: [],
-  articleList: [],
-  recommendList: [],
-  writerList: [{
+{
+  "success": true,
+  "list": [{
     "id": 1,
     "imgUrl": "https://upload.jianshu.io/users/upload_avatars/9988193/fc26c109-1ae6-4327-a298-2def343e9cd8.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96/format/webp",
     "name": "张三",
@@ -30,21 +25,5 @@ const defaultState = fromJS({
     "name": "赵六",
     "wordsNum": 503.7,
     "likesNum": 8.2
-  }],
-})
-
-export default (state = defaultState, action) => {
-  switch (action.type) {
-    case constants.GET_TOPIC_LIST:
-      return state.set('topicList', action.data);
-    case constants.GET_ARTICLE_LIST:
-      return state.set('articleList', action.data);
-    case constants.GET_RECOMMEND_LIST:
-      return state.set('recommendList', action.data);
-    case constants.GET_WRITER_LIST:
-      return state.set('writerList', action.data);
-    default:
-      return state;;
-  }
-  
+  }]
 }
