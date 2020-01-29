@@ -22,6 +22,12 @@ const getWriterList = (data) => ({
   data: fromJS(data)
 })
 
+const addMoreArticles = (data, page) => ({
+  type: constants.ADD_MORE_ARTICLES,
+  data: fromJS(data),
+  articlePage: page
+})
+
 export const initTopicList = () => {
   return (dispatch) => {
     axios('/api/topicList.json')
@@ -63,6 +69,18 @@ export const initWriterList = () => {
     axios('/api/writerList.json')
       .then((res)=>{
         dispatch(getWriterList(res.data.list))
+      })
+      .catch(()=>{
+        console.log("get Writer list error.");
+      })
+  }
+}
+
+export const getMoreArticles = (page) => {
+  return (dispatch) => {
+    axios('/api/articleList.json?page=' + page)
+      .then((res)=>{
+        dispatch(addMoreArticles(res.data.list, page))
       })
       .catch(()=>{
         console.log("get Writer list error.");

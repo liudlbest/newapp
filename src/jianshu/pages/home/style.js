@@ -71,6 +71,21 @@ export const ListItem = styled.div`
   }
 `;
 
+export const GetMoreArticles = styled.div`
+  width: 100%;
+  height: 40px;
+  font-size: 15px;
+  line-height: 15px;
+  padding: 10px 15px;
+  margin: 30px 0;
+  text-align: center;
+  color: #fff;
+  background: #a5a5a5;
+  border-radius: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+`;
+
 export const RecommendWrapper = styled.div`
   margin: 30px 0;
   width: 280px;
@@ -154,3 +169,5 @@ export const WriterItem  = styled.div`
     color: #42c02e
   }
 `;
+
+
