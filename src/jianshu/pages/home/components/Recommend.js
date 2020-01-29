@@ -1,9 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux'
 
-const Recommend = () => {
+import { RecommendWrapper, RecommendItem } from '../style'
+import { actionCreators } from '../store'
+
+const Recommend = (props) => {
+
+  const { list, initRecommendList } = props;
+
+  useEffect(()=>{
+    if(list.size === 0){
+      initRecommendList();
+    }
+  })
+
+  const getList = (list) => (
+    list.map((item) => (
+      <RecommendItem key={item.get("id")} imgUrl={item.get("imgUrl")}></RecommendItem>
+    ))
+  )
+
   return (
-    <div>Recommend</div>
+    <RecommendWrapper>
+      {getList(list)}
+    </RecommendWrapper>
   )
 }
 
-export default Recommend;
+const mapState = (state) => ({
+  list: state.getIn(['home', 'recommendList'])
+})
+
+const mapDispatch = (dispatch) => ({
+  initRecommendList: () => {
+    dispatch(actionCreators.initRecommendList())
+  }
+})
+
+export default connect(mapState, mapDispatch)(Recommend);

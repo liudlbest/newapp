@@ -12,6 +12,11 @@ const getArticle = (data) => ({
   data: fromJS(data)
 })
 
+const getRecommend = (data) => ({
+  type: constants.GET_RECOMMEND_LIST,
+  data: fromJS(data)
+})
+
 export const initTopicList = () => {
   return (dispatch) => {
     axios('/api/topicList.json')
@@ -32,6 +37,18 @@ export const initArticleList = () => {
       })
       .catch(()=>{
         console.log("get article list error.");
+      })
+  }
+}
+
+export const initRecommendList = () => {
+  return (dispatch) => {
+    axios('/api/recommendList.json')
+      .then((res)=>{
+        dispatch(getRecommend(res.data.list))
+      })
+      .catch(()=>{
+        console.log("get recommend list error.");
       })
   }
 }
