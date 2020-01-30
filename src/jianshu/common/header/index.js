@@ -1,5 +1,6 @@
 import React from "react";
 import {CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom'
 import {connect} from 'react-redux';
 import {
   HeaderWrapper,
@@ -67,7 +68,9 @@ const Header = (props) => {
 
   return (
     <HeaderWrapper>
-      <Logo />
+      <Link to='/'>
+        <Logo />
+      </Link>
       <Nav>
         <NavItem className="active left">首页</NavItem>
         <NavItem className="left">下载App</NavItem>

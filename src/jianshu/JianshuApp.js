@@ -10,8 +10,8 @@ class JianshuApp extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Header></Header>
         <BrowserRouter>
+          <Header></Header>
           <div>
             <Route path='/' exact component={Home}></Route>
             <Route path='/detail' exact component={Detail}></Route>
