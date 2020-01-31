@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { connect } from "react-redux";
+import React, { useEffect, useCallback } from 'react'
+import { useSelector, useDispatch } from "react-redux";
 import { HomeWrapper, HomeLeft, HomeRight, BackTop } from "./style";
 import Topic from './components/Topic'
 import List from './components/List'
@@ -9,8 +9,19 @@ import { actionCreators } from './store';
 
 const Home = (props) => {
 
-  const { changeScrollFlag, backTopScroll } = props;
+  const backTopScroll = useSelector(state => state.getIn(['home', 'backTopScroll']));
+  const dispatch = useDispatch();
 
+  // 修改“返回顶部”图标标志
+  const changeScrollFlag = useCallback(() => {
+    if(document.documentElement.scrollTop > 300){
+      dispatch(actionCreators.toggleBackTop(true))
+    } else {
+      dispatch(actionCreators.toggleBackTop(false))
+    }
+  },[dispatch])
+  
+  // 返回顶部
   const handleBackTop = () => {
     window.scrollTo(0, 0);
   }
@@ -20,17 +31,22 @@ const Home = (props) => {
     return () => {
       window.removeEventListener("scroll", changeScrollFlag);
     };
-  })
+  }, [changeScrollFlag])
 
   return (
     <HomeWrapper>
       <HomeLeft>
+        {/* 首页图 */}
         <img className="banner-img" alt="" src="https://static.zhihu.com/heifetz/assets/NewYear2020Banner.e5ccc19d.png"/>
+        {/* 讨论话题 */}
         <Topic></Topic>
+        {/* 文章列表 */}
         <List></List>
       </HomeLeft>
       <HomeRight>
+        {/* 推荐分类 */}
         <Recommend></Recommend>
+        {/* 推荐作者 */}
         <Writer></Writer>
       </HomeRight>
       {
@@ -40,19 +56,4 @@ const Home = (props) => {
   )
 }
 
-const mapState = (state ) => ({
-  backTopScroll: state.getIn(['home', 'backTopScroll'])
-});
-
-const mapDispatch = (dispatch) => ({
-  changeScrollFlag: (e) => {
-    if(document.documentElement.scrollTop > 300){
-      console.log("hhhh");
-      dispatch(actionCreators.toggleBackTop(true))
-    } else {
-      dispatch(actionCreators.toggleBackTop(false))
-    }
-  }
-})
-
-export default connect(mapState,mapDispatch)(Home);
+export default Home;

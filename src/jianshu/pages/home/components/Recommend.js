@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { RecommendWrapper, RecommendItem } from '../style'
 import { actionCreators } from '../store'
 
 const Recommend = (props) => {
 
-  const { list, initRecommendList } = props;
+  const list = useSelector( state => state.getIn(['home', 'recommendList']))
+  const dispatch = useDispatch();
 
   useEffect(()=>{
-    if(list.size === 0){
-      initRecommendList();
-    }
-  })
+      dispatch(actionCreators.initRecommendList());
+  }, [dispatch])
 
   const getList = (list) => (
     list.map((item) => (
@@ -27,14 +26,4 @@ const Recommend = (props) => {
   )
 }
 
-const mapState = (state) => ({
-  list: state.getIn(['home', 'recommendList'])
-})
-
-const mapDispatch = (dispatch) => ({
-  initRecommendList: () => {
-    dispatch(actionCreators.initRecommendList())
-  }
-})
-
-export default connect(mapState, mapDispatch)(Recommend);
+export default Recommend;

@@ -1,18 +1,17 @@
 import React, { useEffect} from 'react';
-import { connect } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import { WriterWrapper, WriterHeader, WriterInfo, WriterItem } from '../style'
 import { actionCreators } from '../store'
 
 const Writer = (props) => {
   
-  const { writerList, initWriterList } = props;
+  const writerList = useSelector( state =>  state.getIn(['home', 'writerList']))
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if(writerList.size === 0){
-      initWriterList();
-    }
-  })
+    dispatch(actionCreators.initWriterList());
+  },[dispatch])
 
   // 推荐作者列表
   const getWriterList = () => {
@@ -46,14 +45,4 @@ const Writer = (props) => {
   )
 }
 
-const mapStates = (state) => ({
-  writerList: state.getIn(['home', 'writerList'])
-})
-
-const mapDispatch = (dispatch) => ({
-  initWriterList: () => {
-    dispatch(actionCreators.initWriterList())
-  }
-})
-
-export default connect(mapStates, mapDispatch)(Writer);
+export default Writer;

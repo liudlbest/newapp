@@ -1,16 +1,20 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
 import { TopicWrapper, TopicItem } from '../style';
 import { actionCreators } from '../store';
 
-class Topic extends React.Component {
+const Topic = (props) => {
 
-  componentDidMount(){
-    this.props.initTopicList();
-  }
+  const topicList = useSelector(
+    state => state.getIn(['home', 'topicList'])
+  )
+  const dispatch = useDispatch();
 
-  getTopicList(){
-    const { topicList } = this.props;
+  useEffect(() => {
+      dispatch(actionCreators.initTopicList());
+  },[dispatch])
+
+  const getTopicList = () => {
     return (
       topicList.map( (item) => (
         <TopicItem key={item.get('id')}>{item.get('title')}</TopicItem>
@@ -18,25 +22,11 @@ class Topic extends React.Component {
     )
   }
 
-  
-
-  render(){
-    return (
-      <TopicWrapper>
-        {this.getTopicList()}
-      </TopicWrapper>
-    )
-  }
+  return (
+    <TopicWrapper>
+      {getTopicList()}
+    </TopicWrapper>
+  )
 }
 
-const mapStateToProps = (state) => ({
-  topicList: state.getIn(['home', 'topicList'])
-})
-
-const mapDispatch = (dispatch) => ({
-  initTopicList: () => {
-    dispatch(actionCreators.initTopicList());
-  }
-})
-
-export default connect(mapStateToProps, mapDispatch)(Topic);
+export default Topic;
