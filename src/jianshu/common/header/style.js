@@ -13,15 +13,16 @@ export const Logo = styled.div`
   left: 0;
   width: 100px;
   height: 56px;
-  // display: block;
+  display: block;
   background: url(${logo});
   background-size: contain;
 `
 
 export const Nav = styled.div`
-  width: 960px;
+  overflow: hidden;
+  width: 65%;//960px;
   height: 100%;
-  margin: 0 auto;
+  margin-left: 100px;
   padding-right: 70px;
   box-sizing: border-box;
 `
