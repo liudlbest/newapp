@@ -21,7 +21,7 @@ const List = (props) => {
   const getList = () => {
     return (
       list.map((item, index) => (
-        <Link key={index} to='/detail'>
+        <Link key={index} to={'/detail/' + item.get("id")}>
           <ListItem>
             <img className="list-pic" alt={item.get("title")} src={item.get("src")}/>
             <ListInfo>
