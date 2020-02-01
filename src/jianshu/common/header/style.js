@@ -27,7 +27,7 @@ export const Nav = styled.div`
   box-sizing: border-box;
 `
 
-export const NavItem = styled.a`
+export const NavItem = styled.div`
   line-height: 56px;
   font-size: 17px;
   padding: 0 15px; //上下0，左右15px

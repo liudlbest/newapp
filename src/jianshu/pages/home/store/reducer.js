@@ -28,7 +28,7 @@ export default (state = defaultState, action) => {
     case constants.TOGGLE_BACK_TOP:
       return state.set("backTopScroll", action.show)
     default:
-      return state;;
+      return state;
   }
   
 }

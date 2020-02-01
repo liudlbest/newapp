@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom'
-import {connect} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   HeaderWrapper,
   Logo,
@@ -16,15 +16,52 @@ import {
   Addition,
   SearchWrapper,
 } from './style';
-import {actionCreators} from './store'
+import { actionCreators } from './store'
+import { actionCreators as loginActionCreators } from '../../pages/login/store';
 
 const Header = (props) => {
 
   let spinIcon = React.createRef();
   
-  const { list, focused, handleInputFocus, handleInputBlur, 
-    mouseIn, handleSearchMouseEnter, handleMouseLeave, handleChangePage,
-    curPage, totalPage } = props;
+  const focused = useSelector( state => state.getIn(['header','focused']));
+  const mouseIn= useSelector( state => state.getIn(['header', 'mouseIn']));
+  const curPage = useSelector( state => state.getIn(['header', 'curPage']));
+  const totalPage = useSelector( state => state.getIn(['header', 'totalPage']));
+  const list = useSelector( state => state.getIn(['header', 'list']));//state.get('header').get('focused'),)
+  const loginStatus = useSelector( state => state.getIn(['login', 'login']));
+  
+  const dispatch = useDispatch();
+
+  const handleInputFocus = (list) => {
+    // 优化：不用每次focus都去获取数据
+    (list.size === 0) && dispatch(actionCreators.getList())
+    dispatch(actionCreators.searchFocus())
+  };
+  const handleInputBlur = () => {
+    dispatch(actionCreators.searchBlur())
+  };
+  const handleSearchMouseEnter = () => {
+    dispatch(actionCreators.searchMouseEnter())
+  };
+  const handleMouseLeave = () => {
+    dispatch(actionCreators.searchMouseLeave())
+  };
+  const handleChangePage= (curPage, totalPage, spin) => {
+    let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
+    console.log(originAngle);
+    if(originAngle){
+      originAngle = parseInt(originAngle);
+    } else {
+      originAngle = 0;
+    }
+    if(originAngle === 0){
+      originAngle = 360;
+    } else {
+      originAngle = 0;
+    }
+    spin.style.transform = 'rotate(' + originAngle + 'deg)';
+    dispatch(actionCreators.searchChangePage(curPage, totalPage))
+  }
 
   const getSearchArea = (show) => {
     if(show){
@@ -90,7 +127,21 @@ const Header = (props) => {
           {/* Aa图标 */}
           <span className="iconfont">&#xe636;</span>
         </NavItem>
-        <NavItem className="right">登录</NavItem>
+        {
+          // 根据登录状态显示登录或者退出按钮
+          loginStatus ? 
+            <NavItem 
+              className="right"
+              onClick={()=>dispatch(loginActionCreators.handleLogout())}
+            >
+              退出
+            </NavItem>
+            : (
+            <Link to='/login'>
+              <NavItem className="right">登录</NavItem>
+            </Link>
+            )
+        }
       </Nav>
       <Addition>
         <Button className='writing'>
@@ -105,45 +156,5 @@ const Header = (props) => {
 
 }
 
-const mapStateToProps = (state) => ({
-  focused: state.getIn(['header','focused']),//state.get('header').get('focused'),
-  list: state.getIn(['header', 'list']),
-  mouseIn: state.getIn(['header', 'mouseIn']),
-  curPage: state.getIn(['header', 'curPage']),
-  totalPage: state.getIn(['header', 'totalPage'])
-})
 
-const mapDispatchToProps = (dispatch) => ({
-  handleInputFocus : (list) => {
-    // 优化：不用每次focus都去获取数据
-    (list.size === 0) && dispatch(actionCreators.getList())
-    dispatch(actionCreators.searchFocus())
-  },
-  handleInputBlur : () => {
-    dispatch(actionCreators.searchBlur())
-  },
-  handleSearchMouseEnter: () => {
-    dispatch(actionCreators.searchMouseEnter())
-  },
-  handleMouseLeave: () => {
-    dispatch(actionCreators.searchMouseLeave())
-  },
-  handleChangePage: (curPage, totalPage, spin) => {
-    let originAngle = spin.style.transform.replace(/[^0-9]/ig, '');
-    console.log(originAngle);
-    if(originAngle){
-      originAngle = parseInt(originAngle);
-    } else {
-      originAngle = 0;
-    }
-    if(originAngle === 0){
-      originAngle = 360;
-    } else {
-      originAngle = 0;
-    }
-    spin.style.transform = 'rotate(' + originAngle + 'deg)';
-    dispatch(actionCreators.searchChangePage(curPage, totalPage))
-  }
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
