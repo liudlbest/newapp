@@ -1,12 +1,18 @@
-import React from 'react'
-import { useSelector } from "react-redux";
+import React, { useEffect} from 'react'
+import { useSelector, useDispatch } from "react-redux";
 
+import { actionCreators } from './store'
 import { DetailWrapper, Header, Content } from './style'
 
 const Detail = () => {
  
   const title = useSelector( state => state.getIn(['detail', 'title']));
   const content = useSelector( state => state.getIn(['detail', 'content']));
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(actionCreators.initArticle())
+  }, [dispatch])
 
   return (
     <DetailWrapper>
