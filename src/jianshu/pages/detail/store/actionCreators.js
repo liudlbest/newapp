@@ -6,9 +6,9 @@ const getArticleDetail = (data) => ({
   data
 })
 
-export const initArticle = () => {
+export const initArticle = (page) => {
   return (dispatch) => {
-    axios('/api/articleDetail.json')
+    axios('/api/articleDetail.json?pageId=' + page)
       .then(res => {
         dispatch(getArticleDetail(res.data));
       })
