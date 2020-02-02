@@ -1,5 +1,6 @@
 import React, { useEffect} from 'react'
 import { useSelector, useDispatch } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import { actionCreators } from './store'
 import { DetailWrapper, Header, Content } from './style'
@@ -23,4 +24,4 @@ const Detail = (props) => {
   )
 }
 
-export default Detail;
+export default withRouter(Detail);
