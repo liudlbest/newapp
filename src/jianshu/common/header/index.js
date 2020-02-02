@@ -144,11 +144,13 @@ const Header = (props) => {
         }
       </Nav>
       <Addition>
-        <Button className='writing'>
-          {/* 羽毛笔图标 */}
-          <span className="iconfont">&#xe6e5;</span>
-          写文章
-        </Button>
+        <Link to='/write'>
+          <Button className='writing'>
+            {/* 羽毛笔图标 */}
+            <span className="iconfont">&#xe6e5;</span>
+            写文章
+          </Button>
+        </Link>
         <Button className='reg'>注册</Button>
       </Addition>
     </HeaderWrapper>
